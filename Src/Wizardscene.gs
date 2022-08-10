@@ -34,12 +34,12 @@ const session = new Scene(
       ctx.replyIt("Pilih opsi pertanyaan yang kamu inginkan...", { reply_markup: markup.inlineKeyboard(formKeyboard()) })
       return ctx.wizard.leave()
     } else {
-      ctx.reply("Gagal membuat Google Form harap hubungi " + usernameSudo)
-      //buatAbsenForm(ctx.data.judul, ctx.from.id, ctx.message.text, formKeyboard);
-      return ctx.wizard.leave()
+      return ctx.reply("Deskripsi terlalu panjang!! deskripsi maksimal 500 karakter")
       }
     } catch (e) {
       errorSend(ctx.chat.id, String(e))
+      ctx.reply("Gagal membuat Google Form harap hubungi " + usernameSudo)
+      return ctx.wizard.leave()
     }
   }
 )
