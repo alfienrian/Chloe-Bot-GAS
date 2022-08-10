@@ -156,14 +156,15 @@ bot.action(/(buka|kunci)_form/, ctx => {
 
   keyboard[1] = [
     ctx.match[1] === "kunci" ? button.text("🔓 Buka Absen", "buka_form")
-      : button.text("🔒 Tutup Absen", "kunci_form"),
+                             : button.text("🔒 Tutup Absen", "kunci_form"),
         button.text("🗑 Hapus Absen", "del_Form")
   ];
 
   let formText = ctx.match[1] === "kunci"
     ? `Absen telah terkunci! responden sekarang tidak bisa mengisi link form...`
     : `Absen telah terbuka! responden sekarang bisa mengisi link form...`;
-  return bot.tg.answerCallbackQuery(cb.id, formText, { show_alert: true });
+  bot.tg.answerCallbackQuery(cb.id, formText, { show_alert: true });
+  return bot.telegram.editMessageText(cb.message.chat.id, cb.message.message_id, false, cb.message.text, {reply_markup: markup.inlineKeyboard(keyboard)})
 })
 
 bot.action(/save_(pdf|xlsx)/, ctx => {
